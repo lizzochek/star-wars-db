@@ -1,6 +1,7 @@
 import React from "react";
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner/spinner";
+import Error from "../error/error";
 
 import "./item-list.css";
 
@@ -9,17 +10,23 @@ export default class ItemList extends React.Component {
 
   state = {
     peopleList: null,
+    error: false,
+    loading: true,
+  };
+
+  onError = (err) => {
+    this.setState({ error: true, loading: false });
   };
 
   componentDidMount() {
     //Add error handling
     this.swapiService.getAllPeople().then((peopleList) => {
-      this.setState({ peopleList });
+      this.setState({ peopleList, loading: false });
     });
   }
 
   renderItems = (arr) => {
-    return arr.map(({ id, name }) => {
+    const items = arr.map(({ id, name }) => {
       return (
         <li
           className="list-group-item"
@@ -30,17 +37,25 @@ export default class ItemList extends React.Component {
         </li>
       );
     });
+
+    return <ul className="item-list list-group">{items}</ul>;
   };
 
   render() {
-    const { peopleList } = this.state;
+    const { peopleList, loading, error } = this.state;
 
-    if (!peopleList) {
-      return <Spinner />;
-    }
+    const hasData = !(loading || error);
 
-    const people = this.renderItems(peopleList);
+    const errorIndicator = error ? <Error /> : null;
+    const spinner = loading ? <Spinner /> : null;
+    const people = hasData ? this.renderItems(peopleList) : null;
 
-    return <ul className="item-list list-group">{people}</ul>;
+    return (
+      <React.Fragment>
+        {errorIndicator}
+        {spinner}
+        {people}
+      </React.Fragment>
+    );
   }
 }
