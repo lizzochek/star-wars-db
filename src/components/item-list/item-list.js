@@ -19,7 +19,6 @@ export default class ItemList extends React.Component {
   };
 
   componentDidMount() {
-    //Add error handling
     this.swapiService.getAllPeople().then((peopleList) => {
       this.setState({ peopleList, loading: false });
     });
