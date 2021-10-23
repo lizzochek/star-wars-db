@@ -2,7 +2,6 @@ import React from "react";
 
 import "./item-details.css";
 import SwapiService from "../../services/swapi-service";
-import ItemView from "./item-view";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
 
@@ -54,18 +53,28 @@ export default class ItemDetails extends React.Component {
     }
 
     const { item, error, loading, image } = this.state;
+    const { name } = item;
 
     const hasData = !(loading || error);
 
     const errorIndicator = error ? <Error /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = hasData ? <ItemView item={item} image={image} /> : null;
 
     return (
-      <div className="person-details card">
+      <div className="item-details card">
         {errorIndicator}
         {spinner}
-        {content}
+
+        <img className="item-image" src={image} alt="item" />
+
+        <div className="card-body">
+          <h4>{name}</h4>
+          <ul className="list-group list-group-flush">
+            {React.Children.map(this.props.children, (child) => {
+              return child;
+            })}
+          </ul>
+        </div>
       </div>
     );
   }

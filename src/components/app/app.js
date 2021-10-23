@@ -7,6 +7,7 @@ import RandomPlanet from "../random-planet/random-planet";
 import PeoplePage from "../people-page/people-page";
 import Error from "../error/error";
 import Row from "../row/row";
+import Record from "../record/record";
 
 import "./app.css";
 import ItemDetails from "../item-details/item-details";
@@ -39,18 +40,17 @@ export default class App extends React.Component {
       this.swapiService;
 
     const personDetails = (
-      <ItemDetails
-        itemId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage}
-      />
+      <ItemDetails itemId={11} getData={getPerson} getImageUrl={getPersonImage}>
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye color" />
+      </ItemDetails>
     );
     const starshipDetails = (
       <ItemDetails
         itemId={5}
         getData={getStarship}
         getImageUrl={getStarshipImage}
-      />
+      ></ItemDetails>
     );
 
     return (
