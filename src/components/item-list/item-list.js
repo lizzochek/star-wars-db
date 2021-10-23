@@ -6,10 +6,8 @@ import Error from "../error/error";
 import "./item-list.css";
 
 export default class ItemList extends React.Component {
-  swapiService = new SwapiService();
-
   state = {
-    peopleList: null,
+    itemList: null,
     error: false,
     loading: true,
   };
@@ -19,20 +17,25 @@ export default class ItemList extends React.Component {
   };
 
   componentDidMount() {
-    this.swapiService.getAllPeople().then((peopleList) => {
-      this.setState({ peopleList, loading: false });
+    const { getData } = this.props;
+
+    getData().then((itemList) => {
+      this.setState({ itemList, loading: false });
     });
   }
 
   renderItems = (arr) => {
-    const items = arr.map(({ id, name }) => {
+    const items = arr.map((item) => {
+      const { id } = item;
+      const label = this.props.renderItem(item);
+
       return (
         <li
           className="list-group-item"
           key={id}
           onClick={() => this.props.onItemSelected(id)}
         >
-          {name}
+          {label}
         </li>
       );
     });
@@ -41,13 +44,13 @@ export default class ItemList extends React.Component {
   };
 
   render() {
-    const { peopleList, loading, error } = this.state;
+    const { itemList, loading, error } = this.state;
 
     const hasData = !(loading || error);
 
     const errorIndicator = error ? <Error /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const people = hasData ? this.renderItems(peopleList) : null;
+    const people = hasData ? this.renderItems(itemList) : null;
 
     return (
       <React.Fragment>
