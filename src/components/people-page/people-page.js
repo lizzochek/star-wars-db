@@ -43,7 +43,7 @@ export default class PeoplePage extends React.Component {
 
     return (
       <ErrorBoundary>
-        <Row left={itemList} right={personDetails} />;
+        <Row left={itemList} right={personDetails} />
       </ErrorBoundary>
     );
   }

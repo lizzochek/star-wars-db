@@ -1,5 +1,6 @@
 import React from "react";
 import SwapiService from "../../services/swapi-service";
+import ErrorBoundary from "../error-boundary/error-boundary";
 import dataContainer from "../hoc-helpers/data-container";
 
 import "./item-list.css";
@@ -30,7 +31,7 @@ class ItemList extends React.Component {
     const { data } = this.props;
     const items = this.renderItems(data);
 
-    return <React.Fragment>{items}</React.Fragment>;
+    return <ErrorBoundary>{items}</ErrorBoundary>;
   }
 }
 

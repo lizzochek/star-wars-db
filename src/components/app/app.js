@@ -5,7 +5,7 @@ import SwapiService from "../../services/swapi-service";
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import PeoplePage from "../people-page/people-page";
-import Error from "../error/error";
+import ErrorBoundary from "../error-boundary/error-boundary";
 import Row from "../row/row";
 import Record from "../record/record";
 
@@ -17,7 +17,6 @@ export default class App extends React.Component {
 
   state = {
     showRandomPlanet: true,
-    hasError: false,
   };
 
   toggleRandomPlanet = () => {
@@ -28,12 +27,7 @@ export default class App extends React.Component {
     });
   };
 
-  componentDidCatch() {
-    this.setState({ hasError: true });
-  }
-
   render() {
-    if (this.hasError) return <Error />;
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
     const {
@@ -78,17 +72,23 @@ export default class App extends React.Component {
 
     return (
       <div>
-        {/* <Header />
-        {planet}
+        <ErrorBoundary>
+          <Header />
+          <ErrorBoundary>
+            {planet}
 
-        <button
-          className="toggle-planet btn btn-warning btn-lg"
-          onClick={this.toggleRandomPlanet}
-        >
-          Toggle Random Planet
-        </button>
-        <PeoplePage /> */}
-        <Row left={personDetails} right={starshipDetails} />
+            <button
+              className="toggle-planet btn btn-warning btn-lg"
+              onClick={this.toggleRandomPlanet}
+            >
+              Toggle Random Planet
+            </button>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <PeoplePage />
+          </ErrorBoundary>
+          <Row left={personDetails} right={starshipDetails} />
+        </ErrorBoundary>
       </div>
     );
   }
