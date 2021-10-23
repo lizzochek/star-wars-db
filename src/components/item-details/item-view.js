@@ -1,15 +1,11 @@
 import React from "react";
 
-const PersonView = ({ person }) => {
-  const { id, name, gender, birthYear, eyeColor } = person;
+const ItemView = ({ item, image }) => {
+  const { id, name, gender, birthYear, eyeColor } = item;
 
   return (
     <React.Fragment>
-      <img
-        className="person-image"
-        src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-        alt="character"
-      />
+      <img className="person-image" src={image} alt="character" />
 
       <div className="card-body">
         <h4>{name}</h4>
@@ -32,4 +28,4 @@ const PersonView = ({ person }) => {
   );
 };
 
-export default PersonView;
+export default ItemView;

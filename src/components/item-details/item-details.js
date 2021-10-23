@@ -1,67 +1,70 @@
 import React from "react";
 
-import "./person-details.css";
+import "./item-details.css";
 import SwapiService from "../../services/swapi-service";
-import PersonView from "./person-view";
+import ItemView from "./item-view";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
-export default class PersonDetails extends React.Component {
+
+export default class ItemDetails extends React.Component {
   swapiService = new SwapiService();
 
   state = {
-    person: null,
+    item: null,
+    image: null,
     loading: true,
     error: false,
   };
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePerson();
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem();
     }
   }
 
-  onPersonLoaded = (person) => {
-    this.setState({ person, loading: false });
+  onItemLoaded = (item) => {
+    this.setState({
+      item,
+      loading: false,
+      image: this.props.getImageUrl(item),
+    });
   };
 
   onError = (err) => {
     this.setState({ error: true, loading: false });
   };
 
-  updatePerson() {
-    const { personId } = this.props;
+  updateItem() {
+    const { itemId, getData, getImageUrl } = this.props;
 
-    if (!personId) {
+    if (!itemId) {
       return;
     }
 
-    this.swapiService
-      .getPerson(personId)
-      .then(this.onPersonLoaded)
-      .catch(this.onError);
+    getData(itemId).then(this.onItemLoaded).catch(this.onError);
   }
 
   render() {
-    if (!this.state.person) {
+    if (!this.state.item) {
       return <span>Select a person from the list</span>;
     }
 
-    const { person, error, loading } = this.state;
+    const { item, error, loading, image } = this.state;
 
     const hasData = !(loading || error);
 
     const errorIndicator = error ? <Error /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = hasData ? <PersonView person={person} /> : null;
+    const content = hasData ? <ItemView item={item} image={image} /> : null;
 
     return (
       <div className="person-details card">
         {errorIndicator}
-        {loading}
+        {spinner}
         {content}
       </div>
     );

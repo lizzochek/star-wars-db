@@ -1,5 +1,4 @@
 import React from "react";
-import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner/spinner";
 import Error from "../error/error";
 
