@@ -14,11 +14,9 @@ import {
   StarshipList,
 } from "../sw-components/item-lists";
 
-import {
-  PersonDetails,
-  PlanetDetails,
-  StarshipDetails,
-} from "../sw-components/details";
+import PersonDetails from "../sw-components/person-details";
+import PlanetDetails from "../sw-components/planet-details";
+import StarshipDetails from "../sw-components/starship-details";
 
 import "./app.css";
 export default class App extends React.Component {
@@ -56,6 +54,9 @@ export default class App extends React.Component {
             </ErrorBoundary>
 
             <ErrorBoundary>
+              <PersonDetails itemId={11} />
+              <PlanetDetails itemId={6} />
+              <StarshipDetails itemId={9} />
               <PersonList />
               <StarshipList />
               <PlanetList />
