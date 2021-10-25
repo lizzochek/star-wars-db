@@ -1,7 +1,5 @@
 import React from "react";
-import SwapiService from "../../services/swapi-service";
 import ErrorBoundary from "../error-boundary/error-boundary";
-import dataContainer from "../hoc-helpers/data-container";
 
 import "./item-list.css";
 
@@ -35,6 +33,4 @@ class ItemList extends React.Component {
   }
 }
 
-const { getAllPeople } = new SwapiService();
-
-export default dataContainer(ItemList, getAllPeople);
+export default ItemList;

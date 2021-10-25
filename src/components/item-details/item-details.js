@@ -33,7 +33,7 @@ export default class ItemDetails extends React.Component {
   };
 
   updateItem() {
-    const { itemId, getData, getImageUrl } = this.props;
+    const { itemId, getData } = this.props;
 
     if (!itemId) {
       return;

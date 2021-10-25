@@ -6,12 +6,22 @@ import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import PeoplePage from "../people-page/people-page";
 import ErrorBoundary from "../error-boundary/error-boundary";
-import Row from "../row/row";
 import Record from "../record/record";
-
-import "./app.css";
 import ItemDetails from "../item-details/item-details";
 
+import {
+  PersonList,
+  PlanetList,
+  StarshipList,
+} from "../sw-components/item-lists";
+
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+} from "../sw-components/details";
+
+import "./app.css";
 export default class App extends React.Component {
   swapiService = new SwapiService();
 
@@ -46,6 +56,7 @@ export default class App extends React.Component {
         <Record field="eyeColor" label="Eye color" />
       </ItemDetails>
     );
+
     const starshipDetails = (
       <ItemDetails
         itemId={5}
@@ -84,10 +95,14 @@ export default class App extends React.Component {
               Toggle Random Planet
             </button>
           </ErrorBoundary>
+
+          <PersonDetails itemId={11}></PersonDetails>
+
           <ErrorBoundary>
-            <PeoplePage />
+            <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
+            <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+            <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
           </ErrorBoundary>
-          <Row left={personDetails} right={starshipDetails} />
         </ErrorBoundary>
       </div>
     );
