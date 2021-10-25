@@ -11,6 +11,7 @@ export default class PlanetView extends React.Component {
         <img
           className="planet-image"
           src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+          alt="Planet"
         />
         <div>
           <h4>{name}</h4>
