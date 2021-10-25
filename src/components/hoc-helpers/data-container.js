@@ -3,14 +3,14 @@ import ErrorBoundary from "../error-boundary/error-boundary";
 
 import Spinner from "../spinner/spinner";
 
-const dataContainer = (View, getData) => {
+const dataContainer = (View) => {
   return class extends React.Component {
     state = {
       data: null,
     };
 
     componentDidMount() {
-      getData().then((data) => {
+      this.props.getData().then((data) => {
         this.setState({ data });
       });
     }
