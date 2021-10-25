@@ -7,8 +7,17 @@ const swapiService = new SwapiService();
 
 const { getAllPeople, getAllStarships, getAllPlanets } = swapiService;
 
-const PersonList = dataContainer(ItemList, getAllPeople);
-const PlanetList = dataContainer(ItemList, getAllPlanets);
-const StarshipList = dataContainer(ItemList, getAllStarships);
+const parentFunction = (Wrapped, fn) => {
+  return (props) => {
+    return <Wrapped {...props}>{fn}</Wrapped>;
+  };
+};
+
+const renderName = ({ name }) => <span>{name}</span>;
+const ListWithChildren = parentFunction(ItemList, renderName);
+
+const PersonList = dataContainer(ListWithChildren, getAllPeople);
+const PlanetList = dataContainer(ListWithChildren, getAllPlanets);
+const StarshipList = dataContainer(ListWithChildren, getAllStarships);
 
 export { PersonList, PlanetList, StarshipList };

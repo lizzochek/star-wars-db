@@ -99,9 +99,9 @@ export default class App extends React.Component {
           <PersonDetails itemId={11}></PersonDetails>
 
           <ErrorBoundary>
-            <PersonList>{({ name }) => <span>{name}</span>}</PersonList>
-            <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
-            <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
+            <PersonList />
+            <StarshipList />
+            <PlanetList />
           </ErrorBoundary>
         </ErrorBoundary>
       </div>
