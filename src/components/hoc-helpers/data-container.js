@@ -1,17 +1,14 @@
 import React from "react";
-import ErrorBoundary from "../error-boundary/error-boundary";
-
+import Error from "../error/error";
 import Spinner from "../spinner/spinner";
 
 const dataContainer = (View) => {
   return class extends React.Component {
     state = {
       data: null,
+      loading: true,
+      error: false,
     };
-
-    componentDidMount() {
-      this.update();
-    }
 
     componentDidUpdate(prevProps) {
       if (this.props.getData !== prevProps.getData) {
@@ -19,21 +16,44 @@ const dataContainer = (View) => {
       }
     }
 
+    componentDidMount() {
+      this.update();
+    }
+
     update() {
-      this.props.getData().then((data) => {
-        this.setState({ data });
+      this.setState({
+        loading: true,
+        error: false,
       });
+
+      this.props
+        .getData()
+        .then((data) => {
+          this.setState({
+            data,
+            loading: false,
+          });
+        })
+        .catch(() => {
+          this.setState({
+            error: true,
+            loading: false,
+          });
+        });
     }
 
     render() {
-      const { data } = this.state;
+      const { data, loading, error } = this.state;
 
-      if (!data) return <Spinner />;
-      return (
-        <ErrorBoundary>
-          <View {...this.props} data={data} />
-        </ErrorBoundary>
-      );
+      if (loading) {
+        return <Spinner />;
+      }
+
+      if (error) {
+        return <Error />;
+      }
+
+      return <View {...this.props} data={data} />;
     }
   };
 };
