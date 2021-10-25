@@ -1,6 +1,7 @@
 import React from "react";
 
 import SwapiService from "../../services/swapi-service";
+import TestSwapiService from "../../services/test-swapi-service";
 import { SwapiServiceProvider } from "../swapi-service-context/swapi-service-context";
 
 import Header from "../header/header";
@@ -20,10 +21,9 @@ import StarshipDetails from "../sw-components/starship-details";
 
 import "./app.css";
 export default class App extends React.Component {
-  swapiService = new SwapiService();
-
   state = {
     showRandomPlanet: true,
+    swapiService: new SwapiService(),
   };
 
   toggleRandomPlanet = () => {
@@ -34,14 +34,25 @@ export default class App extends React.Component {
     });
   };
 
+  onServiceChange = () => {
+    this.setState(({ swapiService }) => {
+      const Service =
+        swapiService instanceof SwapiService ? TestSwapiService : SwapiService;
+
+      return {
+        swapiService: new Service(),
+      };
+    });
+  };
+
   render() {
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
     return (
       <div>
         <ErrorBoundary>
-          <SwapiServiceProvider value={this.swapiService}>
-            <Header />
+          <SwapiServiceProvider value={this.state.swapiService}>
+            <Header onServiceChange={this.onServiceChange} />
             <ErrorBoundary>
               {planet}
 
