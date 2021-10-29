@@ -34,10 +34,12 @@ const PersonList = swapiServiceContainer(
   dataContainer(ListWithChildren),
   mapPersonMethodsToProps
 );
+
 const PlanetList = swapiServiceContainer(
   dataContainer(ListWithChildren),
   mapPlanetMethodsToProps
 );
+
 const StarshipList = swapiServiceContainer(
   dataContainer(ListWithChildren),
   mapStarshipMethodsToProps

@@ -4,6 +4,10 @@ import ErrorBoundary from "../error-boundary/error-boundary";
 import "./item-list.css";
 
 class ItemList extends React.Component {
+  static defaultProps = {
+    onItemSelected: () => {},
+  };
+
   renderItems = (arr) => {
     const items = arr.map((item) => {
       const { id } = item;
