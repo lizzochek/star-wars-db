@@ -4,8 +4,14 @@ import "./item-details.css";
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner/spinner";
 import ErrorBoundary from "../error-boundary/error-boundary";
-
+import PropTypes from "prop-types";
 export default class ItemDetails extends React.Component {
+  static propTypes = {
+    itemId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    getData: PropTypes.func.isRequired,
+    getImageUrl: PropTypes.func.isRequired,
+  };
+
   swapiService = new SwapiService();
 
   state = {

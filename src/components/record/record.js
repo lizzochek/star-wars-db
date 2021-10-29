@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Record = ({ item, field, label }) => {
   return (
@@ -9,4 +10,13 @@ const Record = ({ item, field, label }) => {
   );
 };
 
+Record.defaultTypes = {
+  item: null,
+};
+
+Record.propTypes = {
+  item: PropTypes.object,
+  field: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+};
 export default Record;

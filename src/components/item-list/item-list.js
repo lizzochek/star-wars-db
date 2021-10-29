@@ -1,11 +1,18 @@
 import React from "react";
 import ErrorBoundary from "../error-boundary/error-boundary";
+import PropTypes from "prop-types";
 
 import "./item-list.css";
 
 class ItemList extends React.Component {
   static defaultProps = {
     onItemSelected: () => {},
+  };
+
+  static propTypes = {
+    onItemSelected: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    children: PropTypes.func.isRequired,
   };
 
   renderItems = (arr) => {

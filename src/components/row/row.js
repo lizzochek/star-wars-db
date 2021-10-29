@@ -1,5 +1,6 @@
 import React from "react";
 import ErrorBoundary from "../error-boundary/error-boundary";
+import PropTypes from "prop-types";
 
 const Row = ({ left, right }) => {
   return (
@@ -10,6 +11,11 @@ const Row = ({ left, right }) => {
       </ErrorBoundary>
     </div>
   );
+};
+
+Row.propTypes = {
+  left: PropTypes.node,
+  right: PropTypes.node,
 };
 
 export default Row;
