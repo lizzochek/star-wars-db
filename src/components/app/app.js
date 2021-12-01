@@ -1,6 +1,11 @@
 import React from "react";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import SwapiService from "../../services/swapi-service";
 import TestSwapiService from "../../services/test-swapi-service";
@@ -81,6 +86,8 @@ export default class App extends React.Component {
                       path="/secret"
                       element={<SecretPage isLoggedIn={isLoggedIn} />}
                     ></Route>
+
+                    <Route path="*" element={<h2>Page not found</h2>} />
                   </Routes>
                 </ErrorBoundary>
               </div>
