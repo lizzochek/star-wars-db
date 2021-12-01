@@ -46,11 +46,17 @@ export default class App extends React.Component {
 
                 <ErrorBoundary>
                   <Routes>
+                    <Route
+                      path="/"
+                      element={<h2>Welcome to Star DB</h2>}
+                      exact
+                    ></Route>
                     <Route path="/people" element={<PeoplePage />}></Route>
                     <Route path="/planets" element={<PlanetsPage />}></Route>
                     <Route
                       path="/starships"
                       element={<StarshipsPage />}
+                      exact
                     ></Route>
                   </Routes>
                 </ErrorBoundary>
