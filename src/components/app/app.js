@@ -13,12 +13,21 @@ import ErrorBoundary from "../error-boundary/error-boundary";
 import PeoplePage from "../pages/people-page";
 import PlanetsPage from "../pages/planets-page";
 import StarshipsPage from "../pages/starship-page";
+import SecretPage from "../pages/secret-page";
+import LoginPage from "../pages/login-page";
 
 import "./app.css";
 
 export default class App extends React.Component {
   state = {
     swapiService: new SwapiService(),
+    isLoggedIn: false,
+  };
+
+  onLogin = () => {
+    this.setState({
+      isLoggedIn: true,
+    });
   };
 
   onServiceChange = () => {
@@ -33,6 +42,7 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { isLoggedIn } = this.state;
     return (
       <div>
         <ErrorBoundary>
@@ -57,6 +67,19 @@ export default class App extends React.Component {
                       path="/starships"
                       element={<StarshipsPage />}
                       exact
+                    ></Route>
+                    <Route
+                      path="/login"
+                      element={
+                        <LoginPage
+                          isLoggedIn={isLoggedIn}
+                          onLogin={this.onLogin}
+                        />
+                      }
+                    ></Route>
+                    <Route
+                      path="/secret"
+                      element={<SecretPage isLoggedIn={isLoggedIn} />}
                     ></Route>
                   </Routes>
                 </ErrorBoundary>
