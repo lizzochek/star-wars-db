@@ -5,12 +5,14 @@ export default class PlanetView extends React.Component {
     const { id, name, population, rotationPeriod, diameter } =
       this.props.planet;
 
+    const { getPlanetImage } =this.props.swapiService; 
+    
     return (
       //Grouping other elements
       <React.Fragment>
         <img
           className="planet-image"
-          src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+          src={getPlanetImage(id)}
           alt="Planet"
         />
         <div>
