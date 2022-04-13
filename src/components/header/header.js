@@ -35,8 +35,5 @@ const Header = ({ onServiceChange }) => {
   );
 };
 
-Header.defaultProps = {
-  onServiceChange: () => {},
-};
 
 export default Header;
