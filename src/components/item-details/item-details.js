@@ -54,7 +54,7 @@ export default class ItemDetails extends React.Component {
 
   render() {
     if (!this.state.item) {
-      return <span>Select a person from the list</span>;
+      return <span>Select an item from the list</span>;
     }
 
     const { item, loading, image } = this.state;
